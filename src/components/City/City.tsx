@@ -1,3 +1,4 @@
+import axios from "axios";
 import * as React from "react"
 import ICity from "../Interfaces/ICity"
 
@@ -13,16 +14,12 @@ class City extends React.Component<ICity, ICity> {
             pointsOfInterest: this.props.pointsOfInterest,
         }
       }
+
     public render() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <h1 className="App-title">React City</h1>
-            </header>
-            <div>
-                Name: {this.state.name}<br />
-                Country: {this.state.country}
-            </div>
+        <div className="city-details">
+            Name: {this.state.name}<br />
+            Country: {this.state.country}
         </div>
     )
     }
