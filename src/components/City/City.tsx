@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as React from "react"
-import ICity from "../Interfaces/ICity"
+import ICity from "../../Interfaces/ICity"
 
 class City extends React.Component<ICity, ICity> {
     constructor(props: ICity) {
@@ -17,12 +17,21 @@ class City extends React.Component<ICity, ICity> {
 
     public render() {
     return (
-        <div className="city-details">
-            Name: {this.state.name}<br />
-            Country: {this.state.country}
+        <div className="card mb-4 shadow-sm">
+            <img className="card-img-top" src={this.state.imageUrl}/>
+            <div className="card-body">
+                <p className="card-text">
+                    {this.state.name}, {this.state.country}
+                </p>
+                <div className="d-flex justify-content-between align-items-center">
+                <div className="btn-group">
+                      <button type="button" className="btn btn-sm btn-outline-secondary">View</button>
+
+                    </div>
+                </div>
+            </div>
         </div>
-    )
-    }
+    )}
 
 }
 
