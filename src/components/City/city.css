@@ -1,3 +1,4 @@
-body {
-    color: red;
+.link-btn a {
+    text-decoration: none;
+    color: black;
 }

@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as React from "react"
+import { Link, NavLink} from "react-router-dom"
 import ICity from "../../Interfaces/ICity"
 
 class Navigation extends React.Component {
@@ -15,10 +16,14 @@ class Navigation extends React.Component {
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                 <li className="nav-item active">
-                    <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                    <NavLink activeClassName="active" className="nav-link" to="/" exact>
+                        Home
+                    </NavLink>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Features</a>
+                    <NavLink activeClassName="active" className="nav-link" to="/pointsofinterest">
+                        Points Of Interest
+                    </NavLink>
                 </li>
                 </ul>
             </div>

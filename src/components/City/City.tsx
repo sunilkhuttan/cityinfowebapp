@@ -1,37 +1,51 @@
 import axios from "axios";
 import * as React from "react"
 import ICity from "../../Interfaces/ICity"
+import CityCard from "./CityCard"
 
-class City extends React.Component<ICity, ICity> {
-    constructor(props: ICity) {
-        super(props)
-        this.state = {
-            country: this.props.country,
-            id: this.props.id,
-            imageUrl: this.props.imageUrl,
-            name: this.props.name,
-            description: this.props.description,
-            pointsOfInterest: this.props.pointsOfInterest,
-        }
+interface ICities {
+    cities: ICity[]
+}
+
+class City extends React.Component<{}, ICities> {
+    constructor(props: {}) {
+        super(props);
+        this.state = {cities: []}
+      };
+
+      public async componentDidMount() {
+        const self: any = this;
+        // const allCities: CitiesApi = new CitiesApi();
+        // const responseData = await allCities.getAllCities();
+        // self.setState(
+        //   {
+        //       cities : responseData,
+        //   })
+        axios.get("http://localhost:55680/api/cities")
+        .then(response => {
+            console.log(response);
+            const responseData = response.data;
+            self.setState(
+                {
+                  cities : responseData,
+          })
+        })
+        .catch(error => {
+          console.log(error);
+        })
       }
 
     public render() {
-    return (
-        <div className="card mb-4 shadow-sm">
-            <img className="card-img-top" src={this.state.imageUrl}/>
-            <div className="card-body">
-                <p className="card-text">
-                    {this.state.name}, {this.state.country}
-                </p>
-                <div className="d-flex justify-content-between align-items-center">
-                <div className="btn-group">
-                      <button type="button" className="btn btn-sm btn-outline-secondary">View</button>
-
-                    </div>
-                </div>
+        return (
+            <div className="row">
+                {
+                    this.state.cities.map((city: ICity, index) => {
+                        return <CityCard key={index} {...city} />
+                    })
+                }
             </div>
-        </div>
-    )}
+        )
+    }
 
 }
 
