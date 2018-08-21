@@ -24,7 +24,7 @@ class App extends React.Component {
             <div className="row cities">
               <Switch>
                 <Route path="/" component={City} exact/>
-                <Route path="/pointsofinterest/:id" component={PointOfInterest}/>
+                <Route path="/pointsofinterest/:id/:cityName?" component={PointOfInterest}/>
                 <Route path="/pointsofinterest" component={PointOfInterest}/>
               </Switch>
             </div>

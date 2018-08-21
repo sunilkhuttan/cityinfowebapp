@@ -6,3 +6,66 @@
     margin: 15px;
     width: 100%;
 }
+
+.empty-poi {
+    margin-top: 30px;
+    text-align: center;
+    height: 50px;
+    width: 100%;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    padding-top: 10px;
+}
+
+.poi-form {
+    background: #cccccc;
+    padding: 20px;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.save-btn-div {
+     margin-top: 20px;
+    /*float: left;
+    width: 100%; */
+}
+
+.button {
+    margin-top: 20px;
+}
+
+.all-poi {
+    width: 100%;
+}
+
+.poi-buttons .delete-btn {
+    margin-right: 20px;
+    border: 1px solid;
+    border-radius: 5px !important;
+    width: 80px;
+    color: #dc3545;
+    background-color: transparent;
+    background-image: none;
+    border-color: #dc3545;
+}
+
+.poi-buttons .delete-btn:hover {
+    background-color: #dc3545;
+    color: white
+}
+
+.poi-buttons .edit-btn {
+    margin-right: 20px;
+    border: 1px solid;
+    border-radius: 5px !important;
+    width: 80px;
+    color: #007bff;
+    background-color: transparent;
+    background-image: none;
+    border-color: #007bff;
+}
+
+.poi-buttons .edit-btn:hover {
+    background-color: #007bff;
+    color: white
+}

@@ -20,11 +20,11 @@ class Navigation extends React.Component {
                         Home
                     </NavLink>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                     <NavLink activeClassName="active" className="nav-link" to="/pointsofinterest">
                         Points Of Interest
                     </NavLink>
-                </li>
+                </li> */}
                 </ul>
             </div>
         </nav>

@@ -1,22 +1,17 @@
 import axios from "axios";
 import * as React from "react"
-import { Link, NavLink, Redirect} from "react-router-dom"
+import { Link, NavLink, Redirect, withRouter} from "react-router-dom"
 import ICity from "../../Interfaces/ICity"
 import "./city.css";
 
 class CityCard extends React.Component<ICity> {
     constructor(props: ICity) {
         super(props);
+        this.showPointsOfInterest = this.showPointsOfInterest.bind(this);
       };
 
-      public showPointsOfInterest: any = () => {
-        const url: string = `/pointsofinterest/${this.props.id}`;
-        return <Redirect to={url} />
-    }
-
     public render() {
-
-    const url: string = `/pointsofinterest/${this.props.id}`;
+    const url: string = `/pointsofinterest/${this.props.id}/${this.props.name}`;
     return (
         <div className="col-md-4">
             <div className="card mb-4 shadow-sm">
@@ -24,12 +19,11 @@ class CityCard extends React.Component<ICity> {
                 <div className="card-body">
                     <p className="card-text">
                         {this.props.name}, {this.props.country} <br></br>
-                        Id is: {this.props.id}
                     </p>
                     <div className="d-flex justify-content-between align-items-center">
                     <div className="btn-group">
                         {/* <button type="button" className="btn btn-sm btn-outline-secondary"
-                        onClick={() => this.showPointsOfInterest()}>
+                        onClick={this.showPointsOfInterest}>
                             View Points Of Interest
                         </button> */}
                         <li  className="btn btn-sm btn-outline-secondary link-btn">
@@ -43,6 +37,12 @@ class CityCard extends React.Component<ICity> {
             </div>
         </div>
     )}
+
+    public showPointsOfInterest(e) {
+        const url: string = `/pointsofinterest/${this.props.id}/${this.props.name}`;
+        return <Redirect to={url} push={true} />
+    }
+
 }
 
 export default CityCard
