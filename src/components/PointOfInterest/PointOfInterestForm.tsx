@@ -1,9 +1,10 @@
 import axios from "axios";
 import * as React from "react"
-import IPointInterestForm from "../../Interfaces/IPointInterestForm"
+import IPointInterestForm from "../../Interfaces/IPointInterestForm";
+import * as poiApi from "../../Services/PointOfInterestApi";
 import "./pointOfInterest.css"
 
-class PointOfInterestForm extends React.Component<{addPoiAction: any, cityId: string}, IPointInterestForm> {
+class PointOfInterestForm extends React.Component<{addPoiAction: any, cityId: number}, IPointInterestForm> {
     constructor(props: any) {
         super(props);
         this.state = {name: "", description: "", imageUrl: ""};
@@ -53,31 +54,19 @@ class PointOfInterestForm extends React.Component<{addPoiAction: any, cityId: st
     }
 
     private onPoiFormSubmit(e): any {
-        const poiForm = new FormData();
-        poiForm.set("name", this.state.name);
-        poiForm.set("description", this.state.description);
-        poiForm.set("imageUrl", this.state.imageUrl);
-
-        const addPoiUrl = `http://localhost:55680/api/cities/${this.props.cityId}/pointsofinterest`;
-        console.log("form submitted")
-        axios.post(addPoiUrl, {
+        const poiForm: IPointInterestForm = {
             name: this.state.name,
             description: this.state.description,
             imageUrl: this.state.imageUrl,
-          }, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-        .then((response: any) => {
-            this.props.addPoiAction(response.data);
-            console.log(response);
-        })
-        .catch((error: any) => {
-            console.log(error);
-        });
+        }
 
-        e.preventDefault();
+        poiApi.addNewPointOfInterest(poiForm, this.props.cityId)
+        .then((response: any) => {
+            if (response.status === 201) {
+                this.props.addPoiAction(response.data);
+                console.log(response);
+            }
+        })
     }
 }
 

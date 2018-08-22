@@ -1,36 +1,48 @@
 import axios from "axios";
-import ICity from "../Interfaces/ICity"
-const citiesApiUrl: string = "http://localhost:55680/api/cities";
+import ICityForm from "../Interfaces/ICityForm";
+let apiUrl = `http://localhost:55680/api/cities`;
+import generateErrorMessage from "./GenerateErrorMessage";
 
-export interface IGetCities {
-    getAllCities();
-    getSingleCity(id: number, includePointOfInterest: boolean);
+export function getSingleCity(cityId: number, includePoI: string) {
+    apiUrl += `${apiUrl}/${cityId}?/includePointsOfInterest=${includePoI}`
+    axios.get(apiUrl)
+    .then(response => {
+        console.log(response);
+        return response;
+    })
+    .catch(error => {
+        const errorMessage = generateErrorMessage(error);
+        alert(errorMessage)
+        console.log(errorMessage);
+        return error.response;
+    })
 }
 
-export default class CitiesApi implements IGetCities  {
-    public async getSingleCity(id: number, includePointOfInterest: boolean) {
-        const includePoI: string = includePointOfInterest ? "true" : "false";
-        let url: string = "";
-        url += `${citiesApiUrl}/${id}?/includePointsOfInterest=${includePoI}`
-        axios.get(url)
-        .then(response => {
-            console.log(response);
-            return response.data;
-        })
-        .catch(error => {
-            console.log(error);
-            return error;
-        })
-    }
-    public async getAllCities() {
-        axios.get(citiesApiUrl)
-        .then(response => {
-            console.log(response);
-            return response.data;
-        })
-        .catch(error => {
-            console.log(error);
-            return error;
-        })
-    }
+export function addNewCity(newCity: ICityForm) {
+    apiUrl += "/city"
+    return axios.post(apiUrl, newCity)
+    .then(response => {
+        console.log(response);
+        return response;
+    })
+    .catch(error => {
+        const errorMessage = generateErrorMessage(error);
+        alert(errorMessage)
+        console.log(errorMessage);
+        return error.response;
+    })
+}
+
+export default function getAllCities() {
+    return axios.get(apiUrl)
+    .then(response => {
+        console.log(response);
+        return response;
+    })
+    .catch(error => {
+        const errorMessage = generateErrorMessage(error);
+        alert(errorMessage)
+        console.log(errorMessage);
+        return error.response;
+    })
 }

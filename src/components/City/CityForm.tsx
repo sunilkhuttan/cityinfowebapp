@@ -2,6 +2,7 @@ import axios from "axios";
 import * as React from "react"
 import ICityForm from "../../Interfaces/ICityForm";
 import IPointInterestForm from "../../Interfaces/IPointInterestForm"
+import * as cityApi from "../../Services/CitiesApi";
 import "./city.css"
 
 class CityForm extends React.Component<{addCityAction: any}, ICityForm> {
@@ -11,7 +12,7 @@ class CityForm extends React.Component<{addCityAction: any}, ICityForm> {
         this.onNameChange = this.onNameChange.bind(this);
         this.onImageUrlChange = this.onImageUrlChange.bind(this);
         this.onDescriptionChange = this.onDescriptionChange.bind(this);
-        this.onPoiFormSubmit = this.onPoiFormSubmit.bind(this);
+        this.onCityFormSubmit = this.onCityFormSubmit.bind(this);
         this.onCountryChange = this.onCountryChange.bind(this);
     };
 
@@ -20,22 +21,22 @@ class CityForm extends React.Component<{addCityAction: any}, ICityForm> {
         <div className="city-form">
             <div className="form-group">
                 <label>City name:</label>
-                <input type="text" className="form-control" id="poi-name" onChange={this.onNameChange} />
+                <input type="text" className="form-control" id="city-name" onChange={this.onNameChange} />
             </div>
             <div className="form-group">
                 <label>City Image Url:</label>
-                <input type="text" className="form-control" id="poi-image-url" onChange={this.onImageUrlChange} />
+                <input type="text" className="form-control" id="city-image-url" onChange={this.onImageUrlChange} />
             </div>
             <div className="form-group">
                 <label >Country:</label>
-                <input className="form-control" id="poi-country" onChange={this.onCountryChange}  />
+                <input className="form-control" id="city-country" onChange={this.onCountryChange}  />
             </div>
             <div className="form-group">
                 <label >City description:</label>
-                <textarea className="form-control" id="poi-description" onChange={this.onDescriptionChange}  />
+                <textarea className="form-control" id="city-description" onChange={this.onDescriptionChange}  />
             </div>
             <div className="save-btn-div">
-                 <button onClick={this.onPoiFormSubmit}>Save</button>
+                 <button onClick={this.onCityFormSubmit}>Save</button>
             </div>
         </div>
     )}
@@ -64,28 +65,18 @@ class CityForm extends React.Component<{addCityAction: any}, ICityForm> {
         })
     }
 
-    private onPoiFormSubmit(e): any {
-        const addPoiUrl = `http://localhost:55680/api/cities/city`;
+    private onCityFormSubmit(): any {
         console.log("form submitted")
-        axios.post(addPoiUrl, {
+        const newCity: ICityForm = {
             name: this.state.name,
             description: this.state.description,
             imageUrl: this.state.imageUrl,
             country: this.state.country,
-          }, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
+        }
+        cityApi.addNewCity(newCity)
         .then((response: any) => {
             this.props.addCityAction(response.data);
-            console.log(response);
         })
-        .catch((error: any) => {
-            console.log(error);
-        });
-
-        e.preventDefault();
     }
 }
 

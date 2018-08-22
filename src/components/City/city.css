@@ -6,11 +6,15 @@
 .city-form {
     background: #cccccc;
     padding: 20px;
-    width: 80%;
+    width: 100%;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
 .city-btn {
     margin-bottom: 10px;
+}
+
+#city-description {
+    height: 150px;
 }

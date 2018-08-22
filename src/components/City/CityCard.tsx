@@ -7,7 +7,6 @@ import "./city.css";
 class CityCard extends React.Component<ICity> {
     constructor(props: ICity) {
         super(props);
-        this.showPointsOfInterest = this.showPointsOfInterest.bind(this);
       };
 
     public render() {
@@ -22,14 +21,10 @@ class CityCard extends React.Component<ICity> {
                     </p>
                     <div className="d-flex justify-content-between align-items-center">
                     <div className="btn-group">
-                        {/* <button type="button" className="btn btn-sm btn-outline-secondary"
-                        onClick={this.showPointsOfInterest}>
-                            View Points Of Interest
-                        </button> */}
                         <li  className="btn btn-sm btn-outline-secondary link-btn">
-                            <NavLink activeClassName="active" to={url} exact>
+                            <Link to={url}>
                                 View Points Of Interest
-                            </NavLink>
+                            </Link>
                         </li>
                         </div>
                     </div>
@@ -37,12 +32,6 @@ class CityCard extends React.Component<ICity> {
             </div>
         </div>
     )}
-
-    public showPointsOfInterest(e) {
-        const url: string = `/pointsofinterest/${this.props.id}/${this.props.name}`;
-        return <Redirect to={url} push={true} />
-    }
-
 }
 
 export default CityCard

@@ -1,31 +1,36 @@
 import axios from "axios";
 import * as React from "react"
 import ICity from "../../Interfaces/ICity"
+import getAllCities from "../../Services/CitiesApi"
 import CityCard from "./CityCard"
 import CityForm from "./CityForm";
 
 interface ICities {
     cities: ICity[],
-    displayCityForm: boolean
+    displayCityForm: boolean,
+    countries: [],
+    loading: boolean,
 }
 
 class City extends React.Component<{}, ICities> {
     constructor(props: {}) {
         super(props);
-        this.state = {cities: [], displayCityForm: false};
+        this.state = {cities: [], displayCityForm: false, countries: [], loading: true};
         this.addNewCity = this.addNewCity.bind(this);
       };
 
-      public async componentDidMount() {
+      public componentDidMount() {
         const self: any = this;
-        axios.get("http://localhost:55680/api/cities")
+        getAllCities()
         .then(response => {
-            console.log(response);
             const responseData = response.data;
-            self.setState(
-                {
-                  cities : responseData,
-          })
+            if (responseData !== undefined) {
+                self.setState(
+                    {
+                      cities : responseData,
+                      loading: false,
+                })
+            }
         })
         .catch(error => {
           console.log(error);
@@ -36,27 +41,42 @@ class City extends React.Component<{}, ICities> {
 
         let form: any;
         if (this.state.displayCityForm) {
-            form =  <div>
-            <CityForm addCityAction={this.addNewCity} />
-        </div>
+            form = <CityForm addCityAction={this.addNewCity} />
         } else {
             form = "";
+        }
+
+        let cities: any;
+        if (this.state.loading) {
+            return <div>Loading cities ...</div>
+        } else if (this.state.cities.length > 0) {
+            cities = this.state.cities.map((city: ICity, index) => {
+                return <CityCard key={index} {...city} />
+            })
+        } else {
+            cities = <div>No cities found</div>;
         }
 
         return (
             <div>
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-6">
                         <button className="city-btn btn btn-primary btn-lg"
-                        onClick={this.displayCityForm} >Add new city</button>
-                        {form}
+                            onClick={this.displayCityForm}
+                            data-toggle="collapse"
+                            data-target="#city-form">
+                                Add new city
+                            </button>
                     </div>
+                    <div className="col-md-6">
+                    </div>
+                </div>
+                <div id="city-form" className="row collapse">
+                    {form}
                 </div>
                 <div className="row">
                     {
-                        this.state.cities.map((city: ICity, index) => {
-                            return <CityCard key={index} {...city} />
-                        })
+                        cities
                     }
                 </div>
             </div>

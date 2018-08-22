@@ -2,6 +2,7 @@ import axios from "axios";
 import * as React from "react"
 import IPointInterestForm from "../../Interfaces/IPointInterestForm"
 import IPointOfInterest from "../../Interfaces/IPointOfInterest"
+import * as poiApi from "../../Services/PointOfInterestApi";
 import EditPointOfInterest from "./EditPointOfInterest";
 import "./pointOfInterest.css"
 
@@ -78,17 +79,12 @@ class PointOfInterestCard extends React.Component<IPoiCard, IPoiCardState> {
     )}
 
     private onPoiDelete(e) {
-        const self = this;
-        // tslint:disable-next-line:max-line-length
-        const deletePoiUrl = `http://localhost:55680/api/cities/${this.props.poi.cityId}/pointsofinterest/${this.props.poi.id}`;
-        axios.delete(deletePoiUrl)
+        poiApi.deletePointOfInterest(this.props.poi.cityId, this.props.poi.id)
           .then((response: any) => {
-            self.props.deletePoi(self.props.poi.id);
-            console.log(response);
+              if (response.status === 204) {
+                this.props.deletePoi(this.props.poi.id);
+              }
         })
-        .catch((error: any) => {
-            console.log(error);
-        });
     }
 
     private onPoiEdit() {
@@ -99,7 +95,6 @@ class PointOfInterestCard extends React.Component<IPoiCard, IPoiCardState> {
         this.setState({displayEditForm: !this.state.displayEditForm});
         this.setState({poi: updatedPoi })
     }
-
 }
 
 export default PointOfInterestCard

@@ -2,7 +2,8 @@ import axios from "axios";
 import * as React from "react"
 import IPointInterestForm from "../../Interfaces/IPointInterestForm"
 import IPointOfInterest from "../../Interfaces/IPointOfInterest";
-import "./pointOfInterest.css"
+import * as poiApi from "../../Services/PointOfInterestApi";
+import "./pointOfInterest.css";
 
 interface IEditPoiForm {
     poiToEdit: IPointInterestForm,
@@ -68,32 +69,25 @@ class EditPointOfInterest extends React.Component<IEditPoiForm, IPointInterestFo
     }
 
     private onPoiFormSubmit(e): any {
-        const addPoiUrl = `http://localhost:55680/api/cities/
-         ${this.props.cityId}/pointsofinterest/${this.props.poiID}`;
-        console.log("form submitted")
-        axios.put(addPoiUrl, {
+        const formData: IPointInterestForm = {
             name: this.state.name,
             description: this.state.description,
             imageUrl: this.state.imageUrl,
-          }, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
+        }
+        const addPoiUrl = `http://localhost:55680/api/cities/
+         ${this.props.cityId}/pointsofinterest/${this.props.poiID}`;
+        console.log("form submitted")
+        poiApi.editPointOfInterest(formData, this.props.cityId, this.props.poiID)
         .then((response: any) => {
-            const updatedPoi: IPointInterestForm = {
-                name: this.state.name,
-                description: this.state.description,
-                imageUrl: this.state.imageUrl,
+            if (response.status === 204) {
+                const updatedPoi: IPointInterestForm = {
+                    name: this.state.name,
+                    description: this.state.description,
+                    imageUrl: this.state.imageUrl,
+                };
+                this.props.updatePoi(updatedPoi);
             }
-            this.props.updatePoi(updatedPoi);
-            console.log(response);
         })
-        .catch((error: any) => {
-            console.log(error);
-        });
-
-        e.preventDefault();
     }
 }
 
