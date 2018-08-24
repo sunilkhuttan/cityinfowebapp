@@ -1,14 +1,16 @@
 import axios from "axios";
 import * as React from "react"
-import { Link, NavLink} from "react-router-dom"
-import ICity from "../../Interfaces/ICity"
+import { NavLink} from "react-router-dom"
 
 class Navigation extends React.Component {
 
     public render() {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">Cities Information</a>
+            <a className="navbar-brand" href="#"></a>
+            <NavLink className="navbar-brand" to="/" exact>
+                Cities Information
+            </NavLink>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
@@ -20,11 +22,6 @@ class Navigation extends React.Component {
                         Home
                     </NavLink>
                 </li>
-                {/* <li className="nav-item">
-                    <NavLink activeClassName="active" className="nav-link" to="/pointsofinterest">
-                        Points Of Interest
-                    </NavLink>
-                </li> */}
                 </ul>
             </div>
         </nav>

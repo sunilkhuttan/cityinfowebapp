@@ -1,10 +1,10 @@
 import axios from "axios";
 import * as React from "react"
-import IPointInterestForm from "../../Interfaces/IPointInterestForm";
+import IEditPointInterestFormState from "../../Interfaces/IEditPointInterestFormState";
 import * as poiApi from "../../Services/PointOfInterestApi";
 import "./pointOfInterest.css"
 
-class PointOfInterestForm extends React.Component<{addPoiAction: any, cityId: number}, IPointInterestForm> {
+class PointOfInterestForm extends React.Component<{addPoiAction: any, cityId: number}, IEditPointInterestFormState> {
     constructor(props: any) {
         super(props);
         this.state = {name: "", description: "", imageUrl: ""};
@@ -18,15 +18,15 @@ class PointOfInterestForm extends React.Component<{addPoiAction: any, cityId: nu
         return (
         <div className="poi-form">
             <div className="form-group">
-                <label>Point of interest name:</label>
+                <label>Name:</label>
                 <input type="text" className="form-control" id="poi-name" onChange={this.onNameChange} />
             </div>
             <div className="form-group">
-                <label>Point of interest Image Url:</label>
+                <label>Image Url:</label>
                 <input type="text" className="form-control" id="poi-image-url" onChange={this.onImageUrlChange} />
             </div>
             <div className="form-group">
-                <label >Point of interest description:</label>
+                <label >Description:</label>
                 <textarea className="form-control" id="poi-description" onChange={this.onDescriptionChange}  />
             </div>
             <div className="save-btn-div">
@@ -54,7 +54,7 @@ class PointOfInterestForm extends React.Component<{addPoiAction: any, cityId: nu
     }
 
     private onPoiFormSubmit(e): any {
-        const poiForm: IPointInterestForm = {
+        const poiForm: IEditPointInterestFormState = {
             name: this.state.name,
             description: this.state.description,
             imageUrl: this.state.imageUrl,

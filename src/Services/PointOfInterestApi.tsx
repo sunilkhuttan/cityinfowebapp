@@ -1,10 +1,10 @@
 import axios from "axios";
-import ICityForm from "../Interfaces/ICityForm";
-import IPointInterestForm from "../Interfaces/IPointInterestForm";
+import ICityFormState from "../Interfaces/ICityFormState";
+import IEditPointInterestFormState from "../Interfaces/IEditPointInterestFormState";
 import generateErrorMessage from "./GenerateErrorMessage";
 let apiUrl = `http://localhost:55680/api/cities`;
 
-export function addNewPointOfInterest(newPoi: IPointInterestForm, cityId: number) {
+export function addNewPointOfInterest(newPoi: IEditPointInterestFormState, cityId: number) {
     apiUrl = `http://localhost:55680/api/cities/${cityId}/pointsofinterest`;
     return axios.post(apiUrl, {
         name: newPoi.name,
@@ -23,7 +23,7 @@ export function addNewPointOfInterest(newPoi: IPointInterestForm, cityId: number
     })
 }
 
-export function editPointOfInterest(formData: IPointInterestForm, cityId: number, poiId: number ) {
+export function editPointOfInterest(formData: IEditPointInterestFormState, cityId: number, poiId: number ) {
     apiUrl = `http://localhost:55680/api/cities/${cityId}/pointsofinterest/${poiId}`
     return axios.put(apiUrl, {
         name: formData.name,

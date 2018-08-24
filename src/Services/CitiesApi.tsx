@@ -1,5 +1,5 @@
 import axios from "axios";
-import ICityForm from "../Interfaces/ICityForm";
+import ICityFormState from "../Interfaces/ICityFormState";
 let apiUrl = `http://localhost:55680/api/cities`;
 import generateErrorMessage from "./GenerateErrorMessage";
 
@@ -18,7 +18,7 @@ export function getSingleCity(cityId: number, includePoI: string) {
     })
 }
 
-export function addNewCity(newCity: ICityForm) {
+export function addNewCity(newCity: ICityFormState) {
     apiUrl += "/city"
     return axios.post(apiUrl, newCity)
     .then(response => {

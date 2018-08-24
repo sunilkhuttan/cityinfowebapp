@@ -1,18 +1,12 @@
 import axios from "axios";
 import * as React from "react"
+import ICitiesState from "../../Interfaces/ICitiesState";
 import ICity from "../../Interfaces/ICity"
 import getAllCities from "../../Services/CitiesApi"
 import CityCard from "./CityCard"
 import CityForm from "./CityForm";
 
-interface ICities {
-    cities: ICity[],
-    displayCityForm: boolean,
-    countries: [],
-    loading: boolean,
-}
-
-class City extends React.Component<{}, ICities> {
+class City extends React.Component<{}, ICitiesState> {
     constructor(props: {}) {
         super(props);
         this.state = {cities: [], displayCityForm: false, countries: [], loading: true};
@@ -83,14 +77,14 @@ class City extends React.Component<{}, ICities> {
         )
     }
 
-    private addNewCity: any = (city: ICity) => {
+    private addNewCity = (city: ICity): void => {
         this.setState({cities: this.state.cities.concat(city)})
         this.displayCityForm();
     }
 
-    private displayCityForm: any = (e: any) => {
+    private displayCityForm = (): void => {
         this.setState({ displayCityForm : !this.state.displayCityForm })
     }
 }
 
-export default City
+export default City;

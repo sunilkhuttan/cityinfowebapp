@@ -1,10 +1,10 @@
 import IPointOfInterest from "./IPointOfInterest"
 
-interface ICityForm {
+interface ICityFormState {
     name: string
     description: string
     country: string
     imageUrl: string;
 }
 
-export default ICityForm;
+export default ICityFormState;

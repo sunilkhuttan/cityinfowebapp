@@ -1,11 +1,11 @@
 import axios from "axios";
 import * as React from "react"
-import ICityForm from "../../Interfaces/ICityForm";
-import IPointInterestForm from "../../Interfaces/IPointInterestForm"
+import ICityFormState from "../../Interfaces/ICityFormState";
+import IEditPointInterestFormState from "../../Interfaces/IEditPointInterestFormState"
 import * as cityApi from "../../Services/CitiesApi";
 import "./city.css"
 
-class CityForm extends React.Component<{addCityAction: any}, ICityForm> {
+class CityForm extends React.Component<{addCityAction: (ICity) => void}, ICityFormState> {
     constructor(props: any) {
         super(props);
         this.state = {name: "", description: "", imageUrl: "", country: ""};
@@ -67,7 +67,7 @@ class CityForm extends React.Component<{addCityAction: any}, ICityForm> {
 
     private onCityFormSubmit(): any {
         console.log("form submitted")
-        const newCity: ICityForm = {
+        const newCity: ICityFormState = {
             name: this.state.name,
             description: this.state.description,
             imageUrl: this.state.imageUrl,

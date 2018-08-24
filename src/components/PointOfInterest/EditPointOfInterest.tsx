@@ -1,19 +1,12 @@
 import axios from "axios";
 import * as React from "react"
-import IPointInterestForm from "../../Interfaces/IPointInterestForm"
-import IPointOfInterest from "../../Interfaces/IPointOfInterest";
+import IEditPointInterestFormState from "../../Interfaces/IEditPointInterestFormState"
+import IEditPointOfInterestFormProps from "../../Interfaces/IEditPointOfInterestFormProps";
 import * as poiApi from "../../Services/PointOfInterestApi";
 import "./pointOfInterest.css";
 
-interface IEditPoiForm {
-    poiToEdit: IPointInterestForm,
-    cityId: number,
-    poiID: number,
-    updatePoi: any,
-}
-
-class EditPointOfInterest extends React.Component<IEditPoiForm, IPointInterestForm> {
-    constructor(props: IEditPoiForm) {
+class EditPointOfInterest extends React.Component<IEditPointOfInterestFormProps, IEditPointInterestFormState> {
+    constructor(props: IEditPointOfInterestFormProps) {
         super(props);
         this.state = {
             name: this.props.poiToEdit.name,
@@ -30,17 +23,17 @@ class EditPointOfInterest extends React.Component<IEditPoiForm, IPointInterestFo
         return (
         <div className="poi-form">
             <div className="form-group">
-                <label>Point of interest name:</label>
+                <label>Name:</label>
                 <input type="text" className="form-control" id="poi-name"
                     value={this.state.name} onChange={this.onNameChange} />
             </div>
             <div className="form-group">
-                <label>Point of interest Image Url:</label>
+                <label>Image Url:</label>
                 <input type="text" className="form-control" id="poi-image-url"
                     value={this.state.imageUrl} onChange={this.onImageUrlChange} />
             </div>
             <div className="form-group">
-                <label >Point of interest description:</label>
+                <label >Description:</label>
                 <textarea className="form-control" id="poi-description"
                     value={this.state.description} onChange={this.onDescriptionChange}  />
             </div>
@@ -69,7 +62,7 @@ class EditPointOfInterest extends React.Component<IEditPoiForm, IPointInterestFo
     }
 
     private onPoiFormSubmit(e): any {
-        const formData: IPointInterestForm = {
+        const formData: IEditPointInterestFormState = {
             name: this.state.name,
             description: this.state.description,
             imageUrl: this.state.imageUrl,
@@ -80,7 +73,7 @@ class EditPointOfInterest extends React.Component<IEditPoiForm, IPointInterestFo
         poiApi.editPointOfInterest(formData, this.props.cityId, this.props.poiID)
         .then((response: any) => {
             if (response.status === 204) {
-                const updatedPoi: IPointInterestForm = {
+                const updatedPoi: IEditPointInterestFormState = {
                     name: this.state.name,
                     description: this.state.description,
                     imageUrl: this.state.imageUrl,

@@ -5,7 +5,7 @@
   ],
   "jsRules": {},
   "rules": {
-    "semicolon": [false, "never"],
+    "semicolon": [false, "always"],
     "object-literal-sort-keys": false,
     "no-var-requires": false,
     "no-console": false,

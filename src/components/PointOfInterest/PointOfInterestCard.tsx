@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as React from "react"
-import IPointInterestForm from "../../Interfaces/IPointInterestForm"
+import IEditPointInterestFormState from "../../Interfaces/IEditPointInterestFormState"
 import IPointOfInterest from "../../Interfaces/IPointOfInterest"
 import * as poiApi from "../../Services/PointOfInterestApi";
 import EditPointOfInterest from "./EditPointOfInterest";
@@ -13,7 +13,7 @@ interface IPoiCard {
 
 interface IPoiCardState {
     displayEditForm: boolean,
-    poi: IPointInterestForm
+    poi: IEditPointInterestFormState
 }
 
 class PointOfInterestCard extends React.Component<IPoiCard, IPoiCardState> {
@@ -36,7 +36,7 @@ class PointOfInterestCard extends React.Component<IPoiCard, IPoiCardState> {
     public render() {
         let form: any;
         if (this.state.displayEditForm) {
-            form = <EditPointOfInterest
+            form = < EditPointOfInterest
             poiToEdit={this.state.poi}
             cityId={this.props.poi.cityId}
             poiID={this.props.poi.id}

@@ -2,24 +2,21 @@ import axios from "axios";
 import * as React from "react";
 import ICity from "../../Interfaces/ICity";
 import IPointOfInterest from "../../Interfaces/IPointOfInterest";
+import IPointsOfInterestState from "../../Interfaces/IPointsOfInterestState";
 import getAllPointsOfInterest from "../../Services/PointOfInterestApi";
 import "./pointOfInterest.css";
 import PointOfInterestCard from "./PointOfInterestCard";
 import PointOfInterestForm from "./PointOfInterestForm";
 
-interface ICityId {
-    id?: number
-}
+// interface IPointsOfInterest {
+//     pointsOfInterest: IPointOfInterest[];
+//     displayPoiForm: boolean;
+//     poiCityId: number;
+//     errorMessage: string;
+//     loading: boolean;
+// }
 
-interface IPointsOfInterest {
-    pointsOfInterest: IPointOfInterest[];
-    displayPoiForm: boolean;
-    poiCityId: number;
-    errorMessage: string;
-    loading: boolean;
-}
-
-class PointOfInterest extends React.Component<any, IPointsOfInterest > {
+class PointOfInterest extends React.Component<any, IPointsOfInterestState > {
     constructor(props: any) {
         super(props);
         this.state = { pointsOfInterest: [], displayPoiForm: false, poiCityId: 0, errorMessage: "", loading: true };
